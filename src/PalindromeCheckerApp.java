@@ -1,41 +1,88 @@
-import java.util.ArrayDeque;
-import java.util.Deque;
 import java.util.Scanner;
 
 public class PalindromeCheckerApp {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        System.out.print("Enter string: ");
-        String input = sc.nextLine().toLowerCase().replaceAll("[^a-z0-9]", "");
+    static class Node {
+        char data;
+        Node next;
 
-        // Initialize Deque
-        Deque<Character> deque = new ArrayDeque<>();
-
-        // 1. Insert characters into deque
-        for (char ch : input.toCharArray()) {
-            deque.addLast(ch);
+        Node(char data) {
+            this.data = data;
+            this.next = null;
         }
+    }
 
-        boolean isPalindrome = true;
+    public static Node createLinkedList(String str) {
+        Node head = null, tail = null;
 
-        // 2. Remove first & last and Compare
-        while (deque.size() > 1) {
-            char first = deque.removeFirst();
-            char last = deque.removeLast();
+        for (char ch : str.toCharArray()) {
+            Node newNode = new Node(ch);
 
-            if (first != last) {
-                isPalindrome = false;
-                break;
+            if (head == null) {
+                head = tail = newNode;
+            } else {
+                tail.next = newNode;
+                tail = newNode;
             }
         }
+        return head;
+    }
+    public static Node reverse(Node head) {
+        Node prev = null;
+        Node current = head;
+        Node next = null;
 
-        // 3. Print result
-        if (isPalindrome) {
-            System.out.println("Result: It is a Palindrome.");
-        } else {
-            System.out.println("Result: It is NOT a Palindrome.");
+        while (current != null) {
+            next = current.next;
+            current.next = prev;
+            prev = current;
+            current = next;
+        }
+        return prev;
+    }
+
+    public static boolean isPalindrome(Node head) {
+
+        if (head == null || head.next == null)
+            return true;
+
+        Node slow = head;
+        Node fast = head;
+
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
         }
 
-        sc.close();
+        Node secondHalf = reverse(slow);
+        Node firstHalf = head;
+
+        while (secondHalf != null) {
+            if (firstHalf.data != secondHalf.data)
+                return false;
+
+            firstHalf = firstHalf.next;
+            secondHalf = secondHalf.next;
+        }
+
+        return true;
+    }
+
+    public static void main(String[] args) {
+
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("===== Linked List Based Palindrome Checker =====");
+        System.out.print("Enter a string: ");
+        String input = scanner.nextLine();
+
+        Node head = createLinkedList(input);
+
+        if (isPalindrome(head)) {
+            System.out.println("Result: The given string is a Palindrome.");
+        } else {
+            System.out.println("Result: The given string is NOT a Palindrome.");
+        }
+
+        scanner.close();
     }
 }
