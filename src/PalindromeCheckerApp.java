@@ -1,3 +1,4 @@
+<<<<<<< feature/UC6
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Scanner;
@@ -36,5 +37,10 @@ public class PalindromeCheckerApp {
         } else {
             System.out.println("Result: It is NOT a Palindrome.");
         }
+=======
+public class PalindromeCheckerApp {
+    public static void main(String [] args){
+
+>>>>>>> main
     }
 }
