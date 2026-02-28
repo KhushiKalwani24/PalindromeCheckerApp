@@ -1,4 +1,7 @@
-import java.util.*;
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.Scanner;
+import java.util.Stack;
 
 public class PalindromeCheckerApp {
     public static void main(String [] args){
@@ -13,7 +16,4 @@ public class PalindromeCheckerApp {
         } else {
             System.out.println(word + " is NOT a palindrome.");
         }
-
-
-    }
 }
