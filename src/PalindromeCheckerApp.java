@@ -1,3 +1,5 @@
+import java.util.*;
+
 public class PalindromeCheckerApp {
     public static void main(String [] args){
         String word = "madam";  // hardcoded string to check
